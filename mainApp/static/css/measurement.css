@@ -1,0 +1,65 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.title {
+  text-align: center;
+  margin-top: 2%;
+  font-size: 46px;
+  font-weight: 800 !important;
+}
+
+.trash-bin {
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 2%;
+  width: auto;
+}
+
+p {
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.navbar-nav {
+  margin-left: 5%;
+}
+
+.nav-item {
+  margin-left: 10%;
+  font-weight: 400;
+}
+
+.navbar-brand {
+  font-weight: 500;
+  margin-left: 1%;
+}
+
+.active {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.save-button {
+  text-align: center;
+  align-items: center;
+}
+
+.btn-primary {
+  background-color: #b7ddf8;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+#map {
+  height: 350px;
+  width: 100%;
+  margin-top: 2%;
+}
+
+.alert-success, .alert-warning {
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 15px;
+  text-align: center;
+}

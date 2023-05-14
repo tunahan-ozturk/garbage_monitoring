@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.7.0/htmx.min.js"
+      integrity="sha512-etqA0KankuxrlSeZDYycQBY/D/KWZn0YZjlsjAo7kCEBTy1gg+DwmR6icxtOpqDBOzm2P00/lSIXEu7K+zvNsg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static 'css/records.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Garbage Measure</title>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light"
+      style="background-color: #e3f2fd"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="landing">
+          Garbage <img src="static/images/logo.png" alt="logo" /> Measure
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="measurement">Ölçüm</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="records"
+                >Kayıtlar</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="efficiency">Verimlilik</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="data-container">
+        <table class="table table-hover text-center align-middle">
+          <thead class="sticky-header">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Tarih</th>
+              <th scope="col">Boşaltıldığındaki Yüzdesi</th>
+              <th scope="col">Güncelle</th>
+              <th scope="col">Sil</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for data in filteredList %}
+            <tr>
+              <td class="col-md-3">{{data.eventID}}</td>
+              <td class="col-md-3">{{data.creationDate|date:"d.m.Y"}}</td>
+              <td class="col-md-3">{{data.ratio}}</td>
+              <td class="col-md-3">
+                <a class='btn' data-bs-toggle="modal" data-bs-target="#editRecordModal-{{forloop.counter}}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                  </svg>
+                </a>
+              </td>
+              <td class="col-md-3"> 
+                <a class='btn' data-bs-toggle="modal" data-bs-target="#deleteRecordModal-{{forloop.counter}}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                  </svg>
+                </a>
+            </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+        <!-- Edit Modal HTML -->
+        {% for i in filteredList %}
+        <div id="editRecordModal-{{forloop.counter}}" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form action="/update/{{i.eventID}}" method="post">
+                {% csrf_token %}
+                <div class="modal-header">
+                  <h4 class="modal-title">Kaydı Güncelle</h4>
+                  <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"
+                    aria-hidden="Close"
+                  >
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label>Tarih</label>
+                    <input
+                      name = "creationDate"
+                      value="{{i.creationDate|stringformat:'s'}}"
+                      type="date"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Yüzdesi</label>
+                    <input name="ratio" value="{{i.ratio}}" type="number" class="form-control" required />
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  >İptal
+                  </button>
+                  <input type="submit" class="btn btn-info" value="Güncelle" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- Delete Modal HTML -->
+        {% for i in filteredList %}
+        <div id="deleteRecordModal-{{forloop.counter}}" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form>
+                <div class="modal-header">
+                  <h4 class="modal-title">Kaydı Sil</h4>
+                  <button
+                  type="button"
+                  class="btn-close btn-close-white"
+                  data-bs-dismiss="modal"
+                  aria-hidden="Close"
+                >
+                </button>
+                </div>
+                <div class="modal-body">
+                  <p>Bu kaydı silmek istediğinize emin misiniz?</p>
+                  <p class="text-danger">
+                    <small>{{i.creationDate|date:"d.m.Y"}} tarihli {{i.ratio}}% kaydı silinecek</small>
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  >İptal
+                  </button>
+                  <a href="/delete/{{i.eventID}}" type="submit" class="btn btn-danger">Sil</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+  </body>
+</html>

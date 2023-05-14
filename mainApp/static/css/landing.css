@@ -1,0 +1,46 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.header {
+  background-color: #b0deff;
+  height: 35vh;
+}
+
+.brand-name {
+  text-align: center;
+  align-items: center;
+  font-size: 75px;
+  font-weight: 400;
+  padding-top: 3%;
+}
+
+.white-text {
+  color: #ffffff;
+}
+
+.container {
+  text-align: center;
+  margin-top: 3%;
+}
+
+.btn-primary {
+  background-color: #b0deff;
+  border-color: #b0deff;
+  color: #000000;
+  height: 45vh;
+  width: 35vh;
+  margin-left: 25px;
+  border-radius: 50px;
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.welcome-message {
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 400;
+  text-align: center;
+  align-items: center;
+  margin-top: 2%;
+}
